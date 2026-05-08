@@ -1,6 +1,6 @@
 ---
 - name: Install dependencies
-  ansible.builtin.include_tasks: python.yml
+  ansible.builtin.include_tasks: deps.yml
   when: ansible_distribution != 'NixOS'
 
 - name: Verify installation
