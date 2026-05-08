@@ -19,10 +19,12 @@ platforms:
 provisioner:
   config_options:
     defaults:
+      display_ok_hosts: false
+      display_skipped_hosts: false
       # Use the built-in default callback with result_format instead of community.general.yaml
       stdout_callback: ansible.builtin.default
-      result_format: yaml
       remote_tmp: /tmp/.ansible-tmp-$${USER}
+      verbosity: 0
   name: ansible
   inventory:
     group_vars:
