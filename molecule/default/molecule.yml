@@ -38,7 +38,7 @@ provisioner:
       display_ok_hosts: false
       display_skipped_hosts: false
       host_key_checking: false
-      # Use the built-in default callback with result_format instead of community.general.yaml
+      # Use the built-in default callback.
       remote_tmp: /tmp/.ansible-tmp-$${USER}
       stdout_callback: ansible.builtin.default
       verbosity: 0
