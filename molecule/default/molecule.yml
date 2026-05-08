@@ -36,6 +36,7 @@ provisioner:
   config_options:
     defaults:
       host_key_checking: false
+      inject_facts_as_vars: false
       # Use the built-in default callback with result_format instead of community.general.yaml
       remote_tmp: /tmp/.ansible-tmp-$${USER}
       result_format: yaml
@@ -43,7 +44,11 @@ provisioner:
       verbosity: 1
   env:
     ANSIBLE_FORCE_COLOR: '1'
+    ANSIBLE_LIBRARY: ../../library
     ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
+    ANSIBLE_MODULE_UTILS: ../../module_utils
+    GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ANSIBLE_CALLBACK_RESULT_FORMAT: yaml
   inventory:
     group_vars:
       all:
