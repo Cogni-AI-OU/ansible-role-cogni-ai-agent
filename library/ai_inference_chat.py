@@ -13,7 +13,15 @@ def main():
             model=dict(type="str", default="deepseek/DeepSeek-R1"),
             prompt=dict(type="str", required=False),
             system_prompt=dict(type="str", required=False),
-            messages=dict(type="list", elements="dict", required=False, default=[]),
+            messages=dict(
+                type="list",
+                elements="dict",
+                required=False,
+                options=dict(
+                    role=dict(type="str", required=True, choices=["system", "user", "assistant"]),
+                    content=dict(type="str", required=True),
+                ),
+            ),
             max_tokens=dict(type="int", required=False),
             temperature=dict(type="float", required=False),
         ),

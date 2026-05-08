@@ -1,9 +1,10 @@
-from azure.ai.inference import ChatCompletionsClient
-from azure.ai.inference.models import AssistantMessage, SystemMessage, UserMessage
-from azure.core.credentials import AzureKeyCredential
-
-
 def create_client(endpoint, token):
+    try:
+        from azure.ai.inference import ChatCompletionsClient
+        from azure.core.credentials import AzureKeyCredential
+    except ImportError:
+        raise ImportError("The 'azure-ai-inference' package is required for this module.")
+
     return ChatCompletionsClient(
         endpoint=endpoint,
         credential=AzureKeyCredential(token),
@@ -11,6 +12,12 @@ def create_client(endpoint, token):
 
 
 def build_messages(raw_messages=None, system_prompt=None, prompt=None):
+    try:
+        from azure.ai.inference.models import AssistantMessage, SystemMessage, UserMessage
+    except ImportError:
+        # This shouldn't happen if create_client already checked, but for safety
+        raise ImportError("The 'azure-ai-inference' package is required for this module.")
+
     messages = []
 
     if system_prompt:

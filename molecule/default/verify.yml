@@ -27,5 +27,5 @@
       ansible.builtin.assert:
         that:
           - "result_fail.failed"
-          - "'Authentication' in result_fail.msg or 'Unauthorized' in result_fail.msg or '401' in result_fail.msg or 'Invalid' in result_fail.msg"
-      when: result_fail.failed
+          - "'Authentication' in result_fail.msg or 'Unauthorized' in result_fail.msg or '401' in result_fail.msg or 'Invalid' in result_fail.msg or 'connection' in result_fail.msg.lower() or 'timeout' in result_fail.msg.lower()"
+

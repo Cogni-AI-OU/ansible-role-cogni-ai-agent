@@ -42,10 +42,10 @@ provisioner:
       stdout_callback: ansible.builtin.default
       verbosity: 1
   env:
-    ANSIBLE_FORCE_COLOR: '1'
-    ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
-    ANSIBLE_LIBRARY: ../../library
-    ANSIBLE_MODULE_UTILS: ../../module_utils
+    ANSIBLE_FORCE_COLOR: "1"
+    ANSIBLE_LIBRARY: "../../library"
+    ANSIBLE_LOAD_CALLBACK_PLUGINS: "1"
+    ANSIBLE_MODULE_UTILS: "../../module_utils"
   inventory:
     group_vars:
       all:
