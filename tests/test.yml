@@ -1,6 +1,6 @@
 ---
-- name: Run template role
+- name: Run cogni-ai-agent role
   hosts: localhost
   remote_user: root
   roles:
-    - cogni-ai.template
+    - cogni-ai.cogni-ai-agent
