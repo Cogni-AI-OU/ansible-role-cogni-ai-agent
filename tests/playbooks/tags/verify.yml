@@ -37,6 +37,8 @@
         name: requests
         state: present
         executable: '{{ controller_pip }}'
+        extra_args: -q
+      no_log: true
       delegate_to: localhost
       run_once: true  # noqa: run-once[task]
     - name: Ensure container is started
