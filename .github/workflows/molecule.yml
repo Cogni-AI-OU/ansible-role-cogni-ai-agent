@@ -28,9 +28,17 @@ jobs:
         scenario:
           - default
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
         with:
           path: ${{ github.repository }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          cache: pip
+          cache-dependency-path: |
+            ${{ github.repository }}/.devcontainer/requirements.txt
+            ${{ github.repository }}/Pipfile*
+          python-version: '3.12'
       - uses: gofrolist/molecule-action@v2
         env:
           ANSIBLE_FORCE_COLOR: '1'
