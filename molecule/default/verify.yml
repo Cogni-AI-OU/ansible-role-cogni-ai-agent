@@ -21,11 +21,11 @@
         token: "dummy_token"
         prompt: "Hello"
       register: result_fail
-      ignore_errors: true
+      failed_when: false  # Avoid confusing "fatal" logs for an expected failure
 
     - name: Verify failure with dummy token
       ansible.builtin.assert:
         that:
-          - "result_fail.failed"
+          - "result_fail.msg is defined"
           - "'Authentication' in result_fail.msg or 'Unauthorized' in result_fail.msg or '401' in result_fail.msg or 'Invalid' in result_fail.msg or 'connection' in result_fail.msg.lower() or 'timeout' in result_fail.msg.lower()"
 
