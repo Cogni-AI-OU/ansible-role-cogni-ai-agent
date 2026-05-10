@@ -35,6 +35,7 @@ platforms:
 provisioner:
   config_options:
     defaults:
+      callbacks_enabled: ansible.posix.profile_tasks
       display_ok_hosts: false
       display_skipped_hosts: false
       host_key_checking: false
