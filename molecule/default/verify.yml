@@ -42,6 +42,9 @@
           register: result_call
           async: 60
           poll: 5
+          until: result_call is not failed
+          retries: 3
+          delay: 65
         - name: Verify call response
           ansible.builtin.assert:
             that:
