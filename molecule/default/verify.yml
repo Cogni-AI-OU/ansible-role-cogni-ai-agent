@@ -26,24 +26,30 @@
           - result_check.messages[3].role == 'user'
           - result_check.messages[3].content == 'And Germany?'
           - 'result_check.msg == "Check mode: no request sent"'
-    - name: Test ai_inference_chat with actual call (expects GITHUB_TOKEN)
+    - name: Set GH Models token fact
+      ansible.builtin.set_fact:
+        gh_models_token: "{{ lookup('env', 'GH_MODELS_TOKEN') }}"
+    - name: Skip AI test if GH_MODELS_TOKEN is not set
+      ansible.builtin.debug:
+        msg: "Skipping real AI tests. To execute real tests, set the GH_MODELS_TOKEN environment variable with a PAT that has access to GitHub Models."
+      when: gh_models_token | length == 0 or gh_models_token == '${GH_MODELS_TOKEN}'
+    - name: Test ai_inference_chat with actual call (expects GH_MODELS_TOKEN)
       block:
         - name: Call AI API
           cogni_ai.github_models.ai_inference_chat:
             prompt: Hello, this is an automated test. Please respond with 'OK'.
-            token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
+            token: "{{ gh_models_token }}"
           register: result_call
           async: 60
           poll: 5
+          until: result_call is not failed
+          retries: 3
+          delay: 65
         - name: Verify call response
           ansible.builtin.assert:
             that:
               - result_call.message is defined
               - result_call.message | length > 0
-      rescue:
-        - name: Inform about skipped verification
-          ansible.builtin.debug:
-            msg: AI test failed (likely unauthorized or missing token), skipping verification
       when:
-        - lookup('env', 'GITHUB_TOKEN') | length > 0
-        - lookup('env', 'GITHUB_TOKEN') != '${GITHUB_TOKEN}'
+        - gh_models_token | length > 0
+        - gh_models_token != '${GH_MODELS_TOKEN}'
