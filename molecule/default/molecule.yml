@@ -47,6 +47,7 @@ provisioner:
     ANSIBLE_LOAD_CALLBACK_PLUGINS: '1'
     DEBIAN_FRONTEND: noninteractive
     GITHUB_TOKEN: ${GITHUB_TOKEN}
+    GH_MODELS_TOKEN: ${GH_MODELS_TOKEN}
   inventory:
     group_vars:
       all:
